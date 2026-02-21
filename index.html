@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecepAI - El Recepcionista con IA para tu Clínica Dental</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7, #6366f1, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #0f0a2e 0%, #1a0a3d 30%, #0a1a3d 70%, #0a2a2a 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        .typing-dot:nth-child(1) { animation: typing 1s infinite 0s; }
+        .typing-dot:nth-child(2) { animation: typing 1s infinite 0.2s; }
+        .typing-dot:nth-child(3) { animation: typing 1s infinite 0.4s; }
+
+        .neon-border {
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.15), inset 0 0 30px rgba(139, 92, 246, 0.03);
+        }
+
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0f0a2e; }
+        ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 3px; }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        @keyframes chat-in {
+            from { opacity: 0; transform: translateX(-15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes chat-in-right {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .chat-left { animation: chat-in 0.4s ease-out forwards; }
+        .chat-right { animation: chat-in-right 0.4s ease-out forwards; }
+
+        .step-connector {
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        }
+    </style>
+</head>
+<body class="bg-gray-950">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <span class="text-white font-bold text-xl tracking-tight">RecepAI</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#funcionalidades" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Funcionalidades</a>
+                <a href="#como-funciona" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Cómo funciona</a>
+                <a href="#comparativa" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Comparativa</a>
+                <a href="#precios" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Precios</a>
+            </div>
+            <a href="#demo" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all transform hover:scale-105 shadow-lg pulse-glow">
+                Solicitar Demo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <!-- Background blobs -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-purple-600 rounded-full opacity-10 blur-3xl"></div>
+            <div class="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-cyan-500 rounded-full opacity-10 blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-600 rounded-full opacity-5 blur-3xl"></div>
+        </div>
+
+        <!-- Subtle grid -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 pt-32 pb-20 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+                <!-- Left: Copy -->
+                <div class="fade-in-up">
+                    <div class="inline-flex items-center space-x-2 bg-purple-500/10 border border-purple-500/30 rounded-full px-4 py-2 mb-8">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-purple-300 text-sm font-medium">IA para Clínicas Dentales &middot; Disponible 24/7</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-6xl font-black text-white leading-[1.05] mb-6">
+                        Tu recepcionista<br>
+                        <span class="gradient-text">con Inteligencia<br>Artificial.</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-400 leading-relaxed mb-8 max-w-lg">
+                        Gestión de citas, información a pacientes, recordatorios, urgencias y mucho más.
+                        <strong class="text-white">Todo automatizado. Las 24 horas del día.</strong>
+                    </p>
+
+                    <!-- Key callout -->
+                    <div class="bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-500/25 rounded-2xl p-5 mb-10">
+                        <div class="flex items-start space-x-3">
+                            <div class="text-2xl flex-shrink-0">💡</div>
+                            <div>
+                                <p class="text-white font-bold mb-1">Ahorra el coste de un recepcionista a tiempo completo</p>
+                                <p class="text-gray-400 text-sm leading-relaxed">Nuestro agente con IA realiza todo el trabajo de recepción por una fracción del coste. Tu equipo enfocado en lo que importa: tus pacientes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#demo" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 text-center shadow-2xl">
+                            🚀 Solicitar Demo Gratis
+                        </a>
+                        <a href="#como-funciona" class="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all text-center">
+                            Ver cómo funciona &rarr;
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-gray-800/80">
+                        <div>
+                            <div class="text-3xl font-black text-white">24/7</div>
+                            <div class="text-gray-500 text-sm mt-1">Disponibilidad</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-black gradient-text">&minus;80%</div>
+                            <div class="text-gray-500 text-sm mt-1">Carga administrativa</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-black text-white">+40%</div>
+                            <div class="text-gray-500 text-sm mt-1">Citas gestionadas</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Chat demo -->
+                <div class="relative flex justify-center lg:justify-end" style="animation-delay: 0.3s">
+                    <div class="relative w-full max-w-[360px]">
+                        <!-- Glow -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-cyan-500 opacity-20 blur-3xl rounded-3xl scale-110"></div>
+
+                        <!-- Chat window -->
+                        <div class="relative neon-border rounded-3xl overflow-hidden bg-gray-900 shadow-2xl">
+                            <!-- Header -->
+                            <div class="bg-gradient-to-r from-purple-900 to-indigo-900 px-5 py-4 flex items-center space-x-3">
+                                <div class="relative flex-shrink-0">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-full flex items-center justify-center text-lg">🤖</div>
+                                    <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-900 animate-pulse"></div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-white font-semibold text-sm truncate">RecepAI &mdash; Clínica Dental</div>
+                                    <div class="text-green-400 text-xs flex items-center">
+                                        <span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5 animate-pulse"></span>En línea ahora
+                                    </div>
+                                </div>
+                                <div class="flex space-x-1">
+                                    <div class="w-2.5 h-2.5 bg-red-400 rounded-full"></div>
+                                    <div class="w-2.5 h-2.5 bg-yellow-400 rounded-full"></div>
+                                    <div class="w-2.5 h-2.5 bg-green-400 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <!-- Messages -->
+                            <div class="p-4 space-y-3 bg-gray-900" style="min-height: 360px;">
+
+                                <div class="flex items-start space-x-2 chat-left" style="animation-delay: 0.3s; opacity:0">
+                                    <div class="w-7 h-7 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex-shrink-0 flex items-center justify-center text-xs">🤖</div>
+                                    <div class="bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%]">
+                                        <p class="text-white text-sm">¡Hola! Soy el asistente virtual de <strong>Clínica Dental López</strong>. ¿En qué puedo ayudarte? 😊</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start justify-end chat-right" style="animation-delay: 0.9s; opacity:0">
+                                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl rounded-tr-none px-4 py-3 max-w-[80%]">
+                                        <p class="text-white text-sm">Quiero pedir cita para una limpieza dental 🦷</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-2 chat-left" style="animation-delay: 1.5s; opacity:0">
+                                    <div class="w-7 h-7 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex-shrink-0 flex items-center justify-center text-xs">🤖</div>
+                                    <div class="bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-[90%]">
+                                        <p class="text-white text-sm mb-2">¡Perfecto! Tengo disponibilidad esta semana:</p>
+                                        <div class="space-y-1.5">
+                                            <div class="bg-gray-700 hover:bg-purple-900/50 rounded-lg px-3 py-2 text-xs text-gray-300 cursor-pointer transition-colors">📅 Mié 21 Feb &middot; 10:00h</div>
+                                            <div class="bg-gray-700 hover:bg-purple-900/50 rounded-lg px-3 py-2 text-xs text-gray-300 cursor-pointer transition-colors">📅 Jue 22 Feb &middot; 16:30h</div>
+                                            <div class="bg-gray-700 hover:bg-purple-900/50 rounded-lg px-3 py-2 text-xs text-gray-300 cursor-pointer transition-colors">📅 Vie 23 Feb &middot; 11:00h</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start justify-end chat-right" style="animation-delay: 2.1s; opacity:0">
+                                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl rounded-tr-none px-4 py-3 max-w-[80%]">
+                                        <p class="text-white text-sm">El miércoles a las 10:00h</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-2 chat-left" style="animation-delay: 2.7s; opacity:0">
+                                    <div class="w-7 h-7 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex-shrink-0 flex items-center justify-center text-xs">🤖</div>
+                                    <div class="bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%]">
+                                        <p class="text-white text-sm">✅ <strong>¡Cita confirmada!</strong> Te envío un recordatorio por WhatsApp 24h antes. ¡Hasta el miércoles! 😊</p>
+                                    </div>
+                                </div>
+
+                                <!-- Typing -->
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-7 h-7 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex-shrink-0 flex items-center justify-center text-xs">🤖</div>
+                                    <div class="bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3">
+                                        <div class="flex space-x-1 items-center h-4">
+                                            <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                                            <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                                            <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Input bar -->
+                            <div class="bg-gray-800 px-4 py-3 flex items-center space-x-3 border-t border-gray-700">
+                                <input type="text" placeholder="Escribe tu mensaje..." class="flex-1 bg-gray-700 text-white text-sm rounded-full px-4 py-2 outline-none placeholder-gray-500" disabled>
+                                <button class="w-9 h-9 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Floating badges -->
+                        <div class="absolute -left-4 top-1/3 glass-card rounded-xl px-3 py-2.5 float-animation border border-purple-500/20 shadow-xl hidden lg:block">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-lg">✅</span>
+                                <div>
+                                    <div class="text-white text-xs font-semibold">Cita confirmada</div>
+                                    <div class="text-gray-400 text-xs">hace 2 min</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -right-4 bottom-1/3 glass-card rounded-xl px-3 py-2.5 float-animation border border-cyan-500/20 shadow-xl hidden lg:block" style="animation-delay: 1.2s">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-lg">📱</span>
+                                <div>
+                                    <div class="text-white text-xs font-semibold">WhatsApp</div>
+                                    <div class="text-gray-400 text-xs">Recordatorio enviado</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Channels bar -->
+    <section class="bg-gray-900 py-8 border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-gray-500 text-xs mb-6 uppercase tracking-widest font-medium">Disponible donde están tus pacientes</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-14">
+                <div class="flex items-center space-x-2.5 text-gray-400 hover:text-gray-200 transition-colors">
+                    <span class="text-2xl">💬</span>
+                    <span class="font-semibold text-sm">WhatsApp</span>
+                </div>
+                <div class="flex items-center space-x-2.5 text-gray-400 hover:text-gray-200 transition-colors">
+                    <span class="text-2xl">🌐</span>
+                    <span class="font-semibold text-sm">Web Chat</span>
+                </div>
+                <div class="flex items-center space-x-2.5 text-gray-400 hover:text-gray-200 transition-colors">
+                    <span class="text-2xl">📞</span>
+                    <span class="font-semibold text-sm">Teléfono</span>
+                </div>
+                <div class="flex items-center space-x-2.5 text-gray-400 hover:text-gray-200 transition-colors">
+                    <span class="text-2xl">📸</span>
+                    <span class="font-semibold text-sm">Instagram</span>
+                </div>
+                <div class="flex items-center space-x-2.5 text-gray-400 hover:text-gray-200 transition-colors">
+                    <span class="text-2xl">📘</span>
+                    <span class="font-semibold text-sm">Facebook</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem section -->
+    <section class="bg-gray-950 py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center space-x-2 bg-red-500/10 border border-red-500/30 rounded-full px-4 py-2 mb-6">
+                    <span class="text-red-400 text-sm font-medium">⚠️ El problema</span>
+                </div>
+                <h2 class="text-4xl font-black text-white mb-4">¿Cuánto tiempo pierde tu equipo<br>en tareas repetitivas?</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Cada día, tu recepcionista dedica horas a tareas que puede automatizar la IA. Mientras tanto, los pacientes esperan, o peor, se van a otra clínica.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="glass-card rounded-2xl p-6 border border-red-500/15 hover:border-red-500/30 transition-colors">
+                    <div class="text-3xl mb-4">📞</div>
+                    <h3 class="text-white font-bold mb-2">Llamadas sin respuesta</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">El 67% de las llamadas fuera de horario no se contestan. Pacientes perdidos que llaman a otra clínica.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border border-red-500/15 hover:border-red-500/30 transition-colors">
+                    <div class="text-3xl mb-4">⏰</div>
+                    <h3 class="text-white font-bold mb-2">Horas en gestionar citas</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Pedir, cancelar, cambiar citas... Tareas repetitivas que consumen el día de tu recepcionista.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border border-red-500/15 hover:border-red-500/30 transition-colors">
+                    <div class="text-3xl mb-4">❓</div>
+                    <h3 class="text-white font-bold mb-2">Las mismas preguntas</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">"¿Cuánto cuesta una limpieza?", "¿Aceptáis mi seguro?", "¿Dónde estáis?". Miles de veces al año.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border border-red-500/15 hover:border-red-500/30 transition-colors">
+                    <div class="text-3xl mb-4">😤</div>
+                    <h3 class="text-white font-bold mb-2">Pacientes que no aparecen</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Sin recordatorios automáticos, hasta el 30% de las citas se pierden. Tiempo y dinero desperdiciados.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border border-red-500/15 hover:border-red-500/30 transition-colors">
+                    <div class="text-3xl mb-4">🌙</div>
+                    <h3 class="text-white font-bold mb-2">Nada funciona de noche</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Cuando tu clínica cierra, los pacientes siguen buscando. Y si no les respondes, alguien más lo hará.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border border-red-500/15 hover:border-red-500/30 transition-colors">
+                    <div class="text-3xl mb-4">💸</div>
+                    <h3 class="text-white font-bold mb-2">Alto coste de personal</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Un recepcionista a tiempo completo supone más de 20.000&euro;/año entre salario y cargas sociales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features section -->
+    <section class="bg-gray-900 py-24" id="funcionalidades">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center space-x-2 bg-purple-500/10 border border-purple-500/30 rounded-full px-4 py-2 mb-6">
+                    <span class="text-purple-400 text-sm font-medium">✨ La solución</span>
+                </div>
+                <h2 class="text-4xl font-black text-white mb-4">Todo lo que hace un recepcionista,<br><span class="gradient-text">y mucho más</span></h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Imagina tener un recepcionista que nunca descansa, nunca falta y nunca comete el mismo error dos veces.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="feature-card bg-gray-800 rounded-2xl p-8 border border-transparent hover:shadow-xl">
+                    <div class="w-12 h-12 bg-purple-500/15 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">📅</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Gestión de citas completa</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Reserva, modifica y cancela citas automáticamente. Sincronización con tu agenda en tiempo real.</p>
+                    <ul class="space-y-1.5">
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Booking 24/7 sin intervención humana</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Gestión de cancelaciones y cambios</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Recordatorios automáticos 24h antes</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-800 rounded-2xl p-8 border border-transparent hover:shadow-xl">
+                    <div class="w-12 h-12 bg-cyan-500/15 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">ℹ️</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Información de servicios</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Responde sobre tratamientos, precios, seguros, horarios y ubicación. Siempre actualizado y preciso.</p>
+                    <ul class="space-y-1.5">
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Precios y catálogo de tratamientos</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Seguros y opciones de financiación</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Horarios, ubicación y cómo llegar</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-800 rounded-2xl p-8 border border-transparent hover:shadow-xl">
+                    <div class="w-12 h-12 bg-green-500/15 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🦷</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Especialista dental</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Conoce todos los tratamientos: ortodoncia, implantes, blanqueamientos, endodoncias. Explica con claridad.</p>
+                    <ul class="space-y-1.5">
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Base de conocimiento dental completa</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Triaje y evaluación de urgencias</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Derivación al especialista correcto</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-800 rounded-2xl p-8 border border-transparent hover:shadow-xl">
+                    <div class="w-12 h-12 bg-yellow-500/15 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🔔</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Recordatorios y seguimiento</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Recuerda revisiones anuales, citas programadas y seguimiento post-tratamiento de forma automática.</p>
+                    <ul class="space-y-1.5">
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Recordatorio de revisiones periódicas</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Seguimiento post-tratamiento</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Encuestas de satisfacción automáticas</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-800 rounded-2xl p-8 border border-transparent hover:shadow-xl">
+                    <div class="w-12 h-12 bg-red-500/15 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🚨</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Urgencias dentales</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Identifica urgencias, evalúa su gravedad y deriva al profesional adecuado. También fuera de horario.</p>
+                    <ul class="space-y-1.5">
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Triaje inteligente de urgencias</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Alertas inmediatas al dentista</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Consejos de primeros auxilios</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-800 rounded-2xl p-8 border border-transparent hover:shadow-xl">
+                    <div class="w-12 h-12 bg-violet-500/15 rounded-xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🤝</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Captación de pacientes</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Convierte visitantes de tu web e Instagram en pacientes reales. Guía al usuario hasta su primera cita.</p>
+                    <ul class="space-y-1.5">
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Nurturing automático de leads</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Gestión de presupuestos solicitados</li>
+                        <li class="text-gray-500 text-xs flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Facilita la primera visita</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="bg-gray-950 py-24" id="como-funciona">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-white mb-4">En marcha en <span class="gradient-text">48 horas</span></h2>
+                <p class="text-gray-400 text-lg">Sin complicaciones técnicas. Nosotros nos encargamos de todo el proceso.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Lines between steps (desktop only) -->
+                <div class="hidden md:block absolute top-12 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-0.5 bg-gradient-to-r from-purple-500/40 via-indigo-500/40 to-cyan-500/40"></div>
+
+                <div class="text-center relative group">
+                    <div class="w-24 h-24 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-105 transition-transform">
+                        <span class="text-white text-4xl font-black">1</span>
+                    </div>
+                    <h3 class="text-white font-bold text-xl mb-3">Configuración</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Nos proporcionas la información de tu clínica: servicios, precios, horarios, agenda. Entrenamos el agente con tu identidad.</p>
+                </div>
+
+                <div class="text-center relative group">
+                    <div class="w-24 h-24 bg-gradient-to-br from-indigo-600 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-105 transition-transform">
+                        <span class="text-white text-4xl font-black">2</span>
+                    </div>
+                    <h3 class="text-white font-bold text-xl mb-3">Integración</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Conectamos el agente a tu WhatsApp, web y redes sociales. Lo integramos también con tu software de gestión de citas.</p>
+                </div>
+
+                <div class="text-center relative group">
+                    <div class="w-24 h-24 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-105 transition-transform">
+                        <span class="text-white text-4xl font-black">3</span>
+                    </div>
+                    <h3 class="text-white font-bold text-xl mb-3">Automatización</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Tu agente empieza a trabajar. Gestiona citas, responde dudas y capta pacientes, las 24 horas del día.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="bg-gray-900 py-24" id="comparativa">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-white mb-4">Recepcionista humano vs.<br><span class="gradient-text">Recepcionista con IA</span></h2>
+                <p class="text-gray-400 text-lg">El mismo trabajo, a una fracción del coste. Disponible siempre.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Human -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+                    <div class="text-center mb-8">
+                        <div class="text-5xl mb-4">👤</div>
+                        <h3 class="text-white font-bold text-xl">Recepcionista humano</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+                            <span class="text-gray-400 text-sm">Solo disponible 8h al día, de lunes a viernes</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+                            <span class="text-gray-400 text-sm">Vacaciones, bajas y ausencias imprevistas</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+                            <span class="text-gray-400 text-sm">Coste desde <strong class="text-white">20.000€/año</strong> con cargas incluidas</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+                            <span class="text-gray-400 text-sm">Atiende una conversación a la vez</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+                            <span class="text-gray-400 text-sm">Errores humanos y olvidos frecuentes</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+                            <span class="text-gray-400 text-sm">Semanas de formación antes de ser productivo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI -->
+                <div class="bg-gradient-to-br from-purple-900/60 to-indigo-900/60 rounded-2xl p-8 border border-purple-500/40 relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMENDADO</div>
+                    <div class="text-center mb-8">
+                        <div class="text-5xl mb-4">🤖</div>
+                        <h3 class="text-white font-bold text-xl">Recepcionista con IA</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
+                            <span class="text-gray-200 text-sm">Disponible <strong class="text-white">24/7, los 365 días</strong> del año</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
+                            <span class="text-gray-200 text-sm">Sin ausencias ni imprevistos</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
+                            <span class="text-gray-200 text-sm">Desde <strong class="text-white">199€/mes</strong>. Sin sorpresas ni costes ocultos</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
+                            <span class="text-gray-200 text-sm">Atiende cientos de conversaciones simultáneas</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
+                            <span class="text-gray-200 text-sm">Respuestas consistentes y sin errores</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 font-bold flex-shrink-0 mt-0.5">✓</span>
+                            <span class="text-gray-200 text-sm">Operativo en <strong class="text-white">48 horas</strong> desde el inicio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saving highlight -->
+            <div class="mt-8 bg-gradient-to-r from-green-900/30 to-teal-900/30 border border-green-500/20 rounded-2xl p-6 text-center">
+                <p class="text-white font-bold text-xl mb-1">Ahorro real de hasta <span class="text-green-400">18.000€ al año</span></p>
+                <p class="text-gray-400 text-sm">Comparado con un recepcionista a tiempo completo. El agente se paga solo desde el primer mes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-gray-950 py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-white mb-4">Lo que dicen las clínicas que<br>ya lo usan</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-8 border border-gray-800 hover:border-purple-500/30 transition-colors">
+                    <div class="flex text-yellow-400 mb-4 text-sm">★★★★★</div>
+                    <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"Desde que implementamos el agente, hemos reducido las llamadas perdidas a cero. Nuestros pacientes piden cita a las 11 de la noche y a la mañana siguiente está todo confirmado."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">DR</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Dr. Roberto García</div>
+                            <div class="text-gray-500 text-xs">Clínica Dental García, Madrid</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 border border-gray-800 hover:border-purple-500/30 transition-colors">
+                    <div class="flex text-yellow-400 mb-4 text-sm">★★★★★</div>
+                    <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"El ROI fue inmediato. En el primer mes captamos 15 pacientes nuevos que antes perdíamos fuera de horario. El agente se paga solo y sobra dinero."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">ML</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Dra. María López</div>
+                            <div class="text-gray-500 text-xs">Clínica Sonrisa Perfecta, Barcelona</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 border border-gray-800 hover:border-purple-500/30 transition-colors">
+                    <div class="flex text-yellow-400 mb-4 text-sm">★★★★★</div>
+                    <p class="text-gray-300 mb-6 italic text-sm leading-relaxed">"Mi recepcionista ahora se centra en la atención presencial. El teléfono ya no interrumpe. La experiencia de nuestros pacientes ha mejorado notablemente."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">JM</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Javier Martínez</div>
+                            <div class="text-gray-500 text-xs">Clínica Dental Centro, Valencia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="bg-gray-900 py-24" id="precios">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-white mb-4">Precios <span class="gradient-text">simples y transparentes</span></h2>
+                <p class="text-gray-400 text-lg">Sin sorpresas. Sin contratos a largo plazo. Sin costes ocultos.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Básico -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+                    <div class="mb-6">
+                        <h3 class="text-white font-bold text-xl mb-2">Básico</h3>
+                        <div class="flex items-end gap-1">
+                            <span class="text-4xl font-black text-white">199€</span>
+                            <span class="text-gray-500 mb-1">/mes</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-2">Para clínicas que empiezan con IA</p>
+                    </div>
+                    <div class="space-y-3 mb-8">
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Agente en Web Chat</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Gestión de citas básica</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Hasta 500 conversaciones/mes</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Informes mensuales</div>
+                    </div>
+                    <a href="#demo" class="block text-center bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-xl font-semibold transition-colors">Empezar</a>
+                </div>
+
+                <!-- Profesional (highlighted) -->
+                <div class="bg-gradient-to-br from-purple-900/80 to-indigo-900/80 rounded-2xl p-8 border border-purple-500/50 relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">MÁS POPULAR</div>
+                    <div class="mb-6">
+                        <h3 class="text-white font-bold text-xl mb-2">Profesional</h3>
+                        <div class="flex items-end gap-1">
+                            <span class="text-4xl font-black text-white">349€</span>
+                            <span class="text-gray-400 mb-1">/mes</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-2">Para clínicas en crecimiento activo</p>
+                    </div>
+                    <div class="space-y-3 mb-8">
+                        <div class="flex items-center gap-2 text-gray-200 text-sm"><span class="text-green-400 font-bold">✓</span>Todo en Básico +</div>
+                        <div class="flex items-center gap-2 text-gray-200 text-sm"><span class="text-green-400 font-bold">✓</span>WhatsApp Business integrado</div>
+                        <div class="flex items-center gap-2 text-gray-200 text-sm"><span class="text-green-400 font-bold">✓</span>Hasta 2.000 conversaciones/mes</div>
+                        <div class="flex items-center gap-2 text-gray-200 text-sm"><span class="text-green-400 font-bold">✓</span>Integración con tu software</div>
+                        <div class="flex items-center gap-2 text-gray-200 text-sm"><span class="text-green-400 font-bold">✓</span>Recordatorios automáticos</div>
+                        <div class="flex items-center gap-2 text-gray-200 text-sm"><span class="text-green-400 font-bold">✓</span>Soporte prioritario</div>
+                    </div>
+                    <a href="#demo" class="block text-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg">Solicitar Demo</a>
+                </div>
+
+                <!-- Multi-sede -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+                    <div class="mb-6">
+                        <h3 class="text-white font-bold text-xl mb-2">Multi-sede</h3>
+                        <div class="flex items-end gap-1">
+                            <span class="text-4xl font-black text-white">599€</span>
+                            <span class="text-gray-500 mb-1">/mes</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-2">Para grupos de clínicas</p>
+                    </div>
+                    <div class="space-y-3 mb-8">
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Todo en Profesional +</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Hasta 3 sedes incluidas</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Conversaciones ilimitadas</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>IA de voz para llamadas</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>API y personalizaciones</div>
+                        <div class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-green-400 font-bold">✓</span>Account manager dedicado</div>
+                    </div>
+                    <a href="#demo" class="block text-center bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-xl font-semibold transition-colors">Contactar</a>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 text-sm mt-8">
+                ¿No estás seguro? Prueba <strong class="text-gray-300">14 días gratis</strong> sin compromiso. Sin tarjeta de crédito.
+            </p>
+        </div>
+    </section>
+
+    <!-- Final CTA / Demo form -->
+    <section class="bg-gray-950 py-24" id="demo">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 rounded-3xl p-10 md:p-16 border border-purple-500/25 text-center relative overflow-hidden">
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-purple-500 rounded-full opacity-10 blur-3xl"></div>
+                    <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-cyan-500 rounded-full opacity-10 blur-3xl"></div>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="text-5xl mb-6">🚀</div>
+                    <h2 class="text-4xl font-black text-white mb-4">¿Listo para transformar<br>tu clínica?</h2>
+                    <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
+                        Solicita una demo personalizada y gratuita. Te mostramos en vivo cómo funcionaría el agente en tu clínica.
+                    </p>
+
+                    <form id="contactForm" class="max-w-md mx-auto space-y-4">
+                        <input type="text" id="clinicName" placeholder="Nombre de tu clínica" required
+                            class="w-full bg-gray-800 border border-gray-700 focus:border-purple-500 text-white placeholder-gray-500 px-5 py-4 rounded-xl outline-none transition-colors text-sm">
+                        <input type="tel" id="phone" placeholder="Teléfono de contacto" required
+                            class="w-full bg-gray-800 border border-gray-700 focus:border-purple-500 text-white placeholder-gray-500 px-5 py-4 rounded-xl outline-none transition-colors text-sm">
+                        <input type="email" id="email" placeholder="Email profesional" required
+                            class="w-full bg-gray-800 border border-gray-700 focus:border-purple-500 text-white placeholder-gray-500 px-5 py-4 rounded-xl outline-none transition-colors text-sm">
+                        <button type="submit"
+                            class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 pulse-glow shadow-2xl">
+                            Quiero mi Demo Gratuita &rarr;
+                        </button>
+                    </form>
+
+                    <div class="flex flex-wrap items-center justify-center gap-6 mt-8 text-gray-500 text-sm">
+                        <span class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span>Sin compromiso</span>
+                        <span class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span>14 días gratis</span>
+                        <span class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span>Sin tarjeta de crédito</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800/60 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-10">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                        </div>
+                        <span class="text-white font-bold text-xl tracking-tight">RecepAI</span>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-xs leading-relaxed">El recepcionista con inteligencia artificial para clínicas dentales. Disponible 24/7, sin ausencias, sin sorpresas.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm">Producto</h4>
+                    <div class="space-y-2.5">
+                        <a href="#funcionalidades" class="block text-gray-500 hover:text-gray-300 text-sm transition-colors">Funcionalidades</a>
+                        <a href="#comparativa" class="block text-gray-500 hover:text-gray-300 text-sm transition-colors">Comparativa</a>
+                        <a href="#precios" class="block text-gray-500 hover:text-gray-300 text-sm transition-colors">Precios</a>
+                        <a href="#como-funciona" class="block text-gray-500 hover:text-gray-300 text-sm transition-colors">Cómo funciona</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm">Contacto</h4>
+                    <div class="space-y-2.5">
+                        <a href="mailto:hola@recepai.es" class="block text-gray-500 hover:text-gray-300 text-sm transition-colors">hola@recepai.es</a>
+                        <a href="tel:+34900000000" class="block text-gray-500 hover:text-gray-300 text-sm transition-colors">+34 900 000 000</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800/60 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-gray-600 text-sm">&copy; 2025 RecepAI. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm transition-colors">Privacidad</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm transition-colors">Términos de uso</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                navbar.classList.add('bg-gray-950/95', 'backdrop-blur-md', 'border-b', 'border-gray-800/80', 'shadow-xl');
+            } else {
+                navbar.classList.remove('bg-gray-950/95', 'backdrop-blur-md', 'border-b', 'border-gray-800/80', 'shadow-xl');
+            }
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = '¡Recibido! Te contactaremos pronto 🎉';
+            btn.disabled = true;
+            btn.classList.remove('hover:scale-105');
+            btn.classList.add('opacity-90', 'cursor-default');
+        });
+
+        // Scroll-triggered fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.feature-card, .glass-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+
+        // Animate chat bubbles on load
+        document.querySelectorAll('.chat-left, .chat-right').forEach(el => {
+            // Opacity already set to 0 inline, animation handles reveal
+        });
+    </script>
+</body>
+</html>
